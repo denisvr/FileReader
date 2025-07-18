@@ -47,6 +47,16 @@ namespace FileReader.CLI
                     }
                 }
 
+                if (fileType == FileType.Json)
+                {
+                    Console.WriteLine("Is this file encrypted? (y/n):");
+                    var encryptedAnswer = Console.ReadLine()?.Trim().ToLower();
+                    if (encryptedAnswer == "y")
+                    {
+                        fileReader = new EncryptedFileReader(fileReader, new ReverseEncryptionStrategy());
+                    }
+                }
+
                 try
                 {
                     var content = fileReader.Read(path);
