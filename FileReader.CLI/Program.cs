@@ -29,8 +29,15 @@ namespace FileReader.CLI
                     fileReader = new RoleBasedFileReader(
                         fileReader,
                         new SimpleRoleSecurityStrategy(),
-                        userRole.ToString().ToLower() // Or pass as UserRole type, update the interface as needed
+                        userRole.ToString().ToLower()
                     );
+
+                    Console.WriteLine("Is this file encrypted? (y/n):");
+                    var encryptedAnswer = Console.ReadLine()?.Trim().ToLower();
+                    if (encryptedAnswer == "y")
+                    {
+                        fileReader = new EncryptedFileReader(fileReader, new ReverseEncryptionStrategy());
+                    }
                 }
 
                 try
