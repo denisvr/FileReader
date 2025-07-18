@@ -11,9 +11,20 @@ namespace FileReader.CLI
                 var fileType = FileTypePrompter.Prompt();
                 var path = FilePathPrompter.Prompt(fileType);
 
+                IFileReader fileReader = FileReaderFactory.Create(fileType);
+
+                if (fileType == FileType.Text)
+                {
+                    Console.WriteLine("Is this file encrypted? (y/n):");
+                    var encryptedAnswer = Console.ReadLine()?.Trim().ToLower();
+                    if (encryptedAnswer == "y")
+                    {
+                        fileReader = new EncryptedFileReader(fileReader, new ReverseEncryptionStrategy());
+                    }
+                }
+
                 try
                 {
-                    var fileReader = FileReaderFactory.Create(fileType);
                     var content = fileReader.Read(path);
                     Console.WriteLine($"\n--- {fileType.ToString().ToUpper()} File Content ---\n{content}");
                 }
