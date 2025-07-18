@@ -23,6 +23,16 @@ namespace FileReader.CLI
                     }
                 }
 
+                if (fileType == FileType.Xml)
+                {
+                    var userRole = UserRolePrompter.Prompt();
+                    fileReader = new RoleBasedFileReader(
+                        fileReader,
+                        new SimpleRoleSecurityStrategy(),
+                        userRole.ToString().ToLower() // Or pass as UserRole type, update the interface as needed
+                    );
+                }
+
                 try
                 {
                     var content = fileReader.Read(path);
