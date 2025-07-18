@@ -11,15 +11,23 @@ namespace FileReader.CLI
                 Console.WriteLine("Select file type:");
                 Console.WriteLine("1) Text");
                 Console.WriteLine("2) XML");
-
+                Console.WriteLine("3) JSON");
                 var input = Console.ReadLine()?.Trim();
+                switch (input)
+                {
+                    case "1":
+                        return FileType.Text;
 
-                if (input == "1")
-                    return FileType.Text;
-                if (input == "2")
-                    return FileType.Xml;
+                    case "2":
+                        return FileType.Xml;
 
-                Console.WriteLine("Invalid selection. Please enter the number of the file type.");
+                    case "3":
+                        return FileType.Json;
+
+                    default:
+                        Console.WriteLine("Invalid selection. Please enter 1, 2, or 3.");
+                        break;
+                }
             }
         }
     }

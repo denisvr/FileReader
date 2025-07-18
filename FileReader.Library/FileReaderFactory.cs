@@ -8,6 +8,7 @@
             {
                 FileType.Text => new TextFileReader(),
                 FileType.Xml => new XmlFileReader(),
+                FileType.Json => new JsonFileReader(),
                 _ => throw new NotSupportedException("Unknown file type")
             };
         }

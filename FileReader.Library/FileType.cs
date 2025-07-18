@@ -4,6 +4,7 @@
     {
         Text,
         Xml,
+        Json,
         Unknown
     }
 }
