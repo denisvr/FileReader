@@ -55,6 +55,13 @@ namespace FileReader.CLI
                     {
                         fileReader = new EncryptedFileReader(fileReader, new ReverseEncryptionStrategy());
                     }
+
+                    var userRole = UserRolePrompter.Prompt();
+                    fileReader = new RoleBasedFileReader(
+                        fileReader,
+                        new SimpleRoleSecurityStrategy(),
+                        userRole.ToString().ToLower()
+                    );
                 }
 
                 try
