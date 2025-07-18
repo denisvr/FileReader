@@ -1,4 +1,4 @@
-﻿namespace FileReader.Library
+﻿namespace FileReader.Library.Common
 {
     public enum FileType
     {

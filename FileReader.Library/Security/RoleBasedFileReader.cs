@@ -1,4 +1,6 @@
-﻿namespace FileReader.Library
+﻿using FileReader.Library.Common;
+
+namespace FileReader.Library.Security
 {
     public class RoleBasedFileReader : IFileReader
     {

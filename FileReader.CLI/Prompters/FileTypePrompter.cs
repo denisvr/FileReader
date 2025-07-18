@@ -1,6 +1,6 @@
-﻿using FileReader.Library;
+﻿using FileReader.Library.Common;
 
-namespace FileReader.CLI
+namespace FileReader.CLI.Prompters
 {
     public static class FileTypePrompter
     {

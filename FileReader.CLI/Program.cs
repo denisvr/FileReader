@@ -1,4 +1,8 @@
-﻿using FileReader.Library;
+﻿using FileReader.CLI.Prompters;
+using FileReader.Library.Common;
+using FileReader.Library.Encryption;
+using FileReader.Library.Factory;
+using FileReader.Library.Security;
 
 namespace FileReader.CLI
 {
@@ -13,49 +17,21 @@ namespace FileReader.CLI
 
                 IFileReader fileReader = FileReaderFactory.Create(fileType);
 
-                if (fileType == FileType.Text)
-                {
-                    Console.WriteLine("Is this file encrypted? (y/n):");
-                    var encryptedAnswer = Console.ReadLine()?.Trim().ToLower();
-                    if (encryptedAnswer == "y")
-                    {
-                        fileReader = new EncryptedFileReader(fileReader, new ReverseEncryptionStrategy());
-                    }
+                Console.WriteLine("Is this file encrypted? (y/n):");
 
-                    var userRole = UserRolePrompter.Prompt();
-                    fileReader = new RoleBasedFileReader(
-                        fileReader,
-                        new SimpleRoleSecurityStrategy(),
-                        userRole.ToString().ToLower()
-                    );
+                var encryptedAnswer = Console.ReadLine()?.Trim().ToLower();
+
+                if (encryptedAnswer == "y")
+                {
+                    fileReader = new EncryptedFileReader(fileReader, new ReverseEncryptionStrategy());
                 }
 
-                if (fileType == FileType.Xml)
+                Console.WriteLine("Do you want to use role-based security? (y/n):");
+
+                var roleSecurityAnswer = Console.ReadLine()?.Trim().ToLower();
+
+                if (roleSecurityAnswer == "y")
                 {
-                    var userRole = UserRolePrompter.Prompt();
-                    fileReader = new RoleBasedFileReader(
-                        fileReader,
-                        new SimpleRoleSecurityStrategy(),
-                        userRole.ToString().ToLower()
-                    );
-
-                    Console.WriteLine("Is this file encrypted? (y/n):");
-                    var encryptedAnswer = Console.ReadLine()?.Trim().ToLower();
-                    if (encryptedAnswer == "y")
-                    {
-                        fileReader = new EncryptedFileReader(fileReader, new ReverseEncryptionStrategy());
-                    }
-                }
-
-                if (fileType == FileType.Json)
-                {
-                    Console.WriteLine("Is this file encrypted? (y/n):");
-                    var encryptedAnswer = Console.ReadLine()?.Trim().ToLower();
-                    if (encryptedAnswer == "y")
-                    {
-                        fileReader = new EncryptedFileReader(fileReader, new ReverseEncryptionStrategy());
-                    }
-
                     var userRole = UserRolePrompter.Prompt();
                     fileReader = new RoleBasedFileReader(
                         fileReader,

@@ -1,4 +1,6 @@
-﻿namespace FileReader.Library
+﻿using FileReader.Library.Common;
+
+namespace FileReader.Library.Encryption
 {
     public class EncryptedFileReader : IFileReader
     {

@@ -1,4 +1,7 @@
-﻿namespace FileReader.Library
+﻿using FileReader.Library.Common;
+using FileReader.Library.Readers;
+
+namespace FileReader.Library.Factory
 {
     public static class FileReaderFactory
     {

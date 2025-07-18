@@ -1,4 +1,4 @@
-﻿namespace FileReader.Library
+﻿namespace FileReader.Library.Encryption
 {
     public interface IEncryptionStrategy
     {

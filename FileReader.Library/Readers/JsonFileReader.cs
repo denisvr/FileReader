@@ -1,4 +1,6 @@
-﻿namespace FileReader.Library
+﻿using FileReader.Library.Common;
+
+namespace FileReader.Library.Readers
 {
     public class JsonFileReader : IFileReader
     {

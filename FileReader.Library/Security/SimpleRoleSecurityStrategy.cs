@@ -1,6 +1,4 @@
-﻿using System.IO;
-
-namespace FileReader.Library
+﻿namespace FileReader.Library.Security
 {
     public class SimpleRoleSecurityStrategy : IRoleSecurityStrategy
     {
