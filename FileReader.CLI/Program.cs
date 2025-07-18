@@ -1,54 +1,36 @@
 ﻿using FileReader.Library;
-using System;
-using System.IO;
 
-internal class Program
+namespace FileReader.CLI
 {
-    private static void Main()
+    internal class Program
     {
-        while (true)
+        private static void Main()
         {
-            string? path = null;
             while (true)
             {
-                Console.WriteLine("Enter path to text file:");
-                path = Console.ReadLine()?.Trim(' ', '\"');
+                var fileType = FileTypePrompter.Prompt();
+                var path = FilePathPrompter.Prompt(fileType);
 
-                if (string.IsNullOrWhiteSpace(path))
+                try
                 {
-                    Console.WriteLine("File path cannot be empty. Please try again.");
-                    continue;
+                    var fileReader = FileReaderFactory.Create(fileType);
+                    var content = fileReader.Read(path);
+                    Console.WriteLine($"\n--- {fileType.ToString().ToUpper()} File Content ---\n{content}");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"\nError reading file: {ex.Message}");
                 }
 
-                if (!File.Exists(path))
+                Console.WriteLine("\nWould you like to read another file? (y/n):");
+                var answer = Console.ReadLine()?.Trim().ToLower();
+                if (answer != "y")
                 {
-                    Console.WriteLine("File does not exist. Please check the path and try again.");
-                    continue;
+                    Console.WriteLine("Goodbye!");
+                    break;
                 }
-
-                break;
+                Console.WriteLine();
             }
-
-            try
-            {
-                var reader = new TextFileReader();
-                var content = reader.Read(path);
-                Console.WriteLine("\n--- File Content ---\n");
-                Console.WriteLine(content);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"\nError reading file: {ex.Message}");
-            }
-
-            Console.WriteLine("\nWould you like to read another file? (y/n):");
-            var answer = Console.ReadLine()?.Trim().ToLower();
-            if (answer != "y")
-            {
-                Console.WriteLine("Goodbye!");
-                break;
-            }
-            Console.WriteLine();
         }
     }
 }
